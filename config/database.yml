@@ -1,0 +1,60 @@
+default: &default
+  adapter: oracle_enhanced
+  database: "(DESCRIPTION=
+    (ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=13.74.172.139)(PORT=1521)))
+    (CONNECT_TIMEOUT=5)(TCP_CONNECT_TIMEOUT=5)
+    (CONNECT_DATA=(SERVICE_NAME=lumoz000pdb))
+  )"
+  schema: activity
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: oracle_development
+  pool: 5
+  #<<: *default
+  #username: c##lumozproxy[igorbilan]
+  #password: LUMOZ
+
+  #role: set role ACT_UG_NNNNNNYN identified by loa023498asofdiastg;
+  #role: set role ACT_UG_NNNNNNYN_TMP;
+
+  #oracle:
+    #company1:
+      #<<: *default
+      #username: c##lumozproxy[igorbilan]
+      #password: LUMOZ
+
+    #company2:
+      #<<: *default
+      #username: c##lumozproxy[freddyknoll]
+      #password: LUMOZ
+
+igorbilan-company:
+  <<: *default
+  username: c##lumozproxy[igorbilan]
+  password: LUMOZ
+
+freddyknoll-company:
+  <<: *default
+  username: c##lumozproxy[freddyknoll]
+  password: LUMOZ
+
+oracle-db:
+  <<: *default
+  username: c##lumozproxy[igorbilan]
+  password: LUMOZ
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: oracle_test
+
+production:
+  <<: *default
+  database: oracle_production
+  username: oracle
+  password: <%= ENV['ORACLE_DATABASE_PASSWORD'] %>
